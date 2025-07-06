@@ -22,7 +22,7 @@ export default async function Home() {
   return (
     <main className="container mx-auto px-4 py-6 flex flex-col min-h-screen">
       <h1 className="text-3xl font-bold mb-6 text-yellow-900">
-        Diccionario Eléctronico
+        Diccionario de Córdoba
       </h1>
 
       <Tabs defaultValue="words" className="w-full">
