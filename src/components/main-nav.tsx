@@ -49,7 +49,7 @@ export default function MainNav() {
         <div className="flex items-center gap-2">
           <Book className="h-6 w-6 text-yellow-900" />
           <span className="text-xl font-bold text-yellow-900">
-            {isAdminRoute ? "Administrador" : "ElectDict"}
+            {isAdminRoute ? "Administrador" : "CórdobaDict"}
           </span>
         </div>
         <div className="flex items-center gap-4">
