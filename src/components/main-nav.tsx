@@ -47,8 +47,8 @@ export default function MainNav() {
     <header className="border-b bg-background">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <div className="flex items-center gap-2">
-          <Book className="h-6 w-6 text-yellow-900" />
-          <span className="text-xl font-bold text-yellow-900">
+          <Book className="h-6 w-6 text-yellow-900 dark:text-yellow-500" />
+          <span className="text-xl font-bold text-yellow-900 dark:text-yellow-500">
             {isAdminRoute ? "Administrador" : "CórdobaDict"}
           </span>
         </div>
@@ -63,7 +63,7 @@ export default function MainNav() {
                 size="icon"
                 className="rounded-full cursor-pointer"
               >
-                <User className="h-5 w-5 text-yellow-900" />
+                <User className="h-5 w-5 text-yellow-900 dark:text-yellow-500" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
@@ -77,20 +77,20 @@ export default function MainNav() {
               )}
 
               <DropdownMenuItem onClick={handleHome} className="cursor-pointer">
-                <Home className="mr-2 h-4 w-4" />
+                <Home className="mr-2 h-4 w-4 dark:text-yellow-500" />
                 <span>Inicio</span>
               </DropdownMenuItem>
 
               {!pathname?.startsWith("/admin") && (
               <DropdownMenuItem onClick={handleSettings} className="cursor-pointer">
-                <Settings className="mr-2 h-4 w-4" />
+                <Settings className="mr-2 h-4 w-4 dark:text-yellow-500" />
                 <span>Configuración</span>
               </DropdownMenuItem>
               )}
 
               {isAuthenticated && isAdminRoute && (
                 <DropdownMenuItem onClick={handleLogout} className="cursor-pointer">
-                  <LogOut className="mr-2 h-4 w-4" />
+                  <LogOut className="mr-2 h-4 w-4 dark:text-yellow-500" />
                   <span>Cerrar sesión</span>
                 </DropdownMenuItem>
               )}

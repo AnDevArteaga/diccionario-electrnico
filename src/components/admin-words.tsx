@@ -118,7 +118,7 @@ export default function AdminWords() {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold text-orange-800">Gestión de Palabras</h2>
+        <h2 className="text-2xl font-bold text-orange-800 dark:text-yellow-600">Gestión de Palabras</h2>
         <WordDialog
           isEditing={isEditing}
           newWord={newWord}
@@ -134,7 +134,7 @@ export default function AdminWords() {
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-gray-600">Lista de Palabras</CardTitle>
+          <CardTitle className="text-gray-600 dark:text-gray-200">Lista de Palabras</CardTitle>
           <CardDescription>
             Administre las palabras del diccionario. Puede editar o eliminar
             palabras existentes.

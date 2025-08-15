@@ -39,7 +39,7 @@ const PhraseDialog = (
         <Dialog open={isOpen} onOpenChange={closeModal}>
             <DialogContent className="sm:max-w-[500px]">
                 <DialogHeader>
-                    <DialogTitle className="text-orange-800">Editar Frase</DialogTitle>
+                    <DialogTitle className="text-orange-800 dark:text-yellow-500">Editar Frase</DialogTitle>
                     <DialogDescription>
                         Actualice los detalles de la Frase seleccionada.
                     </DialogDescription>
@@ -90,7 +90,7 @@ const PhraseDialog = (
                 </div>
                 <DialogFooter>
                     <Button onClick={handleSavePhrase}
-                    className="bg-orange-900 hover:bg-orange-800 cursor-pointer"
+                    className="bg-orange-900 hover:bg-orange-800 cursor-pointer dark:text-white dark:bg-yellow-600"
                     disabled={isDisabled}
                     >
                         {isLoading

@@ -35,13 +35,13 @@ const WordDialog = (
     return (
         <Dialog open={isOpen} onOpenChange={closeModal}>
                 <Button onClick={() => { openModal(); 
-                    handleAddWord()}} className="cursor-pointer bg-yellow-800 hover:bg-yellow-900">
+                    handleAddWord()}} className="cursor-pointer bg-yellow-800 dark:text-white hover:bg-yellow-900">
                     <Plus className="mr-2 h-4 w-4" />
                     Añadir Palabra
                 </Button>
             <DialogContent className="sm:max-w-[500px]">
                 <DialogHeader>
-                    <DialogTitle className="text-orange-800">
+                    <DialogTitle className="text-orange-800 dark:text-yellow-600">
                         {isEditing ? "Editar Palabra" : "Añadir Nueva Palabra"}
                     </DialogTitle>
                     <DialogDescription>
@@ -91,7 +91,7 @@ const WordDialog = (
                     </div>
                 </div>
                 <DialogFooter>
-                    <Button onClick={handleSaveWord} className="bg-orange-900 hover:bg-orange-800 cursor-pointer"
+                    <Button onClick={handleSaveWord} className="bg-orange-900 hover:bg-orange-800 cursor-pointer dark:bg-yellow-600  dark:text-white"
                     disabled={isDisabled}
                     >
                         {isLoading ? <Loading width="w-6 h-6" /> : "Guardar"}

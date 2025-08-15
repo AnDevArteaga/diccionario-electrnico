@@ -21,12 +21,12 @@ export default async function Home() {
   }
   return (
     <main className="container mx-auto px-4 py-6 flex flex-col min-h-screen">
-      <h1 className="text-3xl font-bold mb-6 text-yellow-900">
+      <h1 className="text-3xl font-bold mb-6 text-yellow-900 dark:text-yellow-500">
         Diccionario de Córdoba
       </h1>
 
-      <Tabs defaultValue="words" className="w-full">
-        <TabsList className="grid w-full grid-cols-3 mb-8 bg-slate-100 rounded-lg">
+      <Tabs defaultValue="words" className="w-full ">
+        <TabsList className="grid w-full grid-cols-3 mb-8 bg-slate-100 dark:bg-[var(--card)] dark:text-gray-500 rounded-lg">
           <TabsTrigger
             value="words"
             className="cursor-pointer text-gray-500 data-[state=active]:text-orange-800 hover:text-orange-800 transition-all rounded-md"

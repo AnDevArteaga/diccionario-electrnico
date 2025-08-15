@@ -46,7 +46,7 @@ export default function ImageModal({ image, format }: Images) {
                     />
                     <Button
                         onClick={() => setOpen(false)}
-                        className="w-full mt-4 bg-orange-900 hover:bg-orange-800 cursor-pointer"
+                        className="w-full mt-4 bg-orange-900 hover:bg-orange-800 dark:bg-yellow-500 dark:text-white cursor-pointer"
                     >
                         Cerrar
                     </Button>

@@ -46,7 +46,7 @@ export default function LoginPage() {
     <div className="container mx-auto flex items-center justify-center min-h-[calc(100vh-4rem)] px-4 py-8">
       <Card className="w-full max-w-md">
         <CardHeader>
-          <CardTitle className="text-2xl text-orange-800">Iniciar sesión</CardTitle>
+          <CardTitle className="text-2xl text-orange-800 dark:text-white">Iniciar sesión</CardTitle>
           <CardDescription>Ingrese sus credenciales para acceder al panel de administración</CardDescription>
         </CardHeader>
         <CardContent>
@@ -58,7 +58,7 @@ export default function LoginPage() {
           )}
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="user" className="text-gray-600">Usuario</Label>
+              <Label htmlFor="user" className="text-gray-600 dark:text-gray-300">Usuario</Label>
               <Input
                 id="user"
                 type="text"
@@ -68,7 +68,7 @@ export default function LoginPage() {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="password" className="text-gray-600">Contraseña</Label>
+              <Label htmlFor="password" className="text-gray-600 dark:text-gray-300">Contraseña</Label>
               <Input
                 id="password"
                 type="password"
@@ -80,7 +80,7 @@ export default function LoginPage() {
           </form>
         </CardContent>
         <CardFooter>
-          <Button className="w-full bg-orange-900 cursor-pointer hover:bg-orange-800" onClick={handleSubmit} disabled={loading}>
+          <Button className="w-full bg-yellow-600 dark:text-white cursor-pointer hover:bg-yellow-700" onClick={handleSubmit} disabled={loading}>
             {loading ? "Iniciando sesión..." : "Iniciar sesión"}
           </Button>
         </CardFooter>

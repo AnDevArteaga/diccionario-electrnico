@@ -35,13 +35,13 @@ const SayingDialog = (
     return (
         <Dialog open={isOpen} onOpenChange={closeModal}>
                 <Button onClick={() => { openModal(); 
-                    handleAddSaying()}} className="cursor-pointer bg-yellow-800 hover:bg-yellow-900">
+                    handleAddSaying()}} className="cursor-pointer bg-yellow-800 hover:bg-yellow-900 dark:text-white dark:bg-yellow-600">
                     <Plus className="mr-2 h-4 w-4" />
                     Añadir Refrán
                 </Button>
             <DialogContent className="sm:max-w-[500px]">
                 <DialogHeader>
-                    <DialogTitle className="text-orange-800">
+                    <DialogTitle className="text-orange-800 dark:text-yellow-600">
                         {isEditing ? "Editar Refrán" : "Añadir Nuevo Refrán"}	
                     </DialogTitle>
                     <DialogDescription>
@@ -92,7 +92,7 @@ const SayingDialog = (
                 </div>
                 <DialogFooter>
                     <Button onClick={handleSaveSaying}
-                    className="bg-orange-900 hover:bg-orange-800 cursor-pointer"
+                    className="bg-orange-900 hover:bg-orange-800 dark:bg-yellow-600  dark:text-white cursor-pointer"
                     disabled={isDisabled}
                     >
                         {isLoading ? <Loading width="w-6 h-6" /> : "Guardar"}

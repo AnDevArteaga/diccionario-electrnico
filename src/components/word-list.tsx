@@ -28,7 +28,7 @@ export default function WordsList({ words }: { words: Word[] }) {
 
   return (
     <div>
-      <h2 className="text-xl font-semibold mb-4 text-gray-600">Palabras</h2>
+      <h2 className="text-xl font-semibold mb-4 text-gray-600 dark:text-white">Palabras</h2>
       <div className="flex flex-wrap gap-6">
       {words.map((word) => (
           <Card

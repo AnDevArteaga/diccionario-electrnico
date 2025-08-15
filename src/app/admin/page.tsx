@@ -8,7 +8,7 @@ import AdminInfo from "@/components/admin-phrases";
 export default function AdminDashboard() {
   return (
     <div className="p-10">
-      <h1 className="text-3xl font-bold mb-6 text-gray-600">
+      <h1 className="text-3xl font-bold mb-6 text-gray-600 dark:text-white">
         Panel de Administración
       </h1>
 

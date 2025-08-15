@@ -120,7 +120,7 @@ export default function AdminWords() {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold text-orange-800">Gestión de Frases proverbiales</h2>
+        <h2 className="text-2xl font-bold text-orange-800 dark:text-yellow-600">Gestión de Frases proverbiales</h2>
         <PhraseDialog
           isEditing={isEditing}
           newPhrase={newPhrase}

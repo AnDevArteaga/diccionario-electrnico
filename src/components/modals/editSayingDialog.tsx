@@ -39,7 +39,7 @@ const SayingDialog = (
         <Dialog open={isOpen} onOpenChange={closeModal}>
             <DialogContent className="sm:max-w-[500px]">
                 <DialogHeader>
-                    <DialogTitle className="text-orange-800">Editar Refranes</DialogTitle>
+                    <DialogTitle className="text-orange-800 dark:text-yellow-600">Editar Refranes</DialogTitle>
                     <DialogDescription>
                         Actualice los detalles del refrán seleccionada.
                     </DialogDescription>
@@ -90,7 +90,7 @@ const SayingDialog = (
                 </div>
                 <DialogFooter>
                     <Button onClick={handleSaveSaying}
-                    className="bg-orange-900 hover:bg-orange-800 cursor-pointer"
+                    className="bg-orange-900 hover:bg-orange-800 cursor-pointer dark:text-white dark:bg-yellow-600"
                     disabled={isDisabled}
                     >
                         {isLoading
