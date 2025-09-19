@@ -5,7 +5,7 @@ import { NewWord, EditWord } from "@/interfaces/word.interface"
 export async function getWords() {
   try {
     const response = await axios.get("https://edutlasdeveloper.pythonanywhere.com/apie/palabras")
-    console.log(response.data)
+    console.log('word', response.data)
     return response.data
   } catch (error) {
     console.error(error)
