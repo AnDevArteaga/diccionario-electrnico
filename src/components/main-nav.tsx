@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
-import { Book, Home, LogOut, Menu, Settings, User } from "lucide-react";
+import { Book, Home, LogOut, Settings, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -53,9 +53,9 @@ export default function MainNav() {
           </span>
         </div>
         <div className="flex items-center gap-4">
-          <Button variant="ghost" size="icon" className="md:hidden">
+          {/* <Button variant="ghost" size="icon" className="md:hidden">
             <Menu className="h-6 w-6" />
-          </Button>
+          </Button> */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button

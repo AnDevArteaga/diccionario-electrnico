@@ -15,14 +15,16 @@ export async function getPhrase() {
 }
 
 export async function addPhrase(phrase: NewPhrase) {
-    if (!phrase.imagen) {
-        console.log("no imagen");
-        return;
-    }
+    // if (!phrase.imagen) {
+    //     console.log("no imagen");
+    //     return;
+    // }
     const formData = new FormData();
     formData.append("frases", phrase.frase);
     formData.append("significado", phrase.significado);
+    if (phrase.imagen) {
     formData.append("imagen", phrase.imagen);
+    }
 
     try {
         console.log("formData", formData);
@@ -40,15 +42,17 @@ export async function addPhrase(phrase: NewPhrase) {
 }
 
 export async function editPhrase(phrase: EditPhrase) {
-    if (!phrase.imagen) {
-        console.log("no imagen");
-        return;
-    }
+    // if (!phrase.imagen) {
+    //     console.log("no imagen");
+    //     return;
+    // }
 
     const formData = new FormData();
     formData.append("frases", phrase.frase);
     formData.append("significado", phrase.significado);
+    if (phrase.imagen) {
     formData.append("imagen", phrase.imagen);
+    }
 
     try {
         console.log("info", phrase);

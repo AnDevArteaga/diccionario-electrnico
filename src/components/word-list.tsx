@@ -1,19 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { getImageUrl } from "@/utils/getImageUrl";
 import { toggleExpand } from "@/utils/toggleExpand";
+import { Search, ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 
 interface Word {
@@ -23,66 +16,220 @@ interface Word {
   imagen: string;
 }
 
+const WORDS_PER_PAGE = 10;
+
 export default function WordsList({ words }: { words: Word[] }) {
   const [expandedId, setExpandedId] = useState<string[]>([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+
+  // Filtrar palabras basado en el término de búsqueda
+  const filteredWords = useMemo(() => {
+    if (!searchTerm.trim()) return words;
+    return words.filter(word => 
+      word.palabra.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      word.significado.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }, [words, searchTerm]);
+
+  // Calcular palabras para la página actual
+  const paginatedWords = useMemo(() => {
+    const startIndex = (currentPage - 1) * WORDS_PER_PAGE;
+    const endIndex = startIndex + WORDS_PER_PAGE;
+    return filteredWords.slice(startIndex, endIndex);
+  }, [filteredWords, currentPage]);
+
+  // Calcular total de páginas
+  const totalPages = Math.ceil(filteredWords.length / WORDS_PER_PAGE);
+
+  // Resetear página cuando cambia la búsqueda
+  const handleSearchChange = (value: string) => {
+    setSearchTerm(value);
+    setCurrentPage(1);
+  };
+
+  // Navegación de páginas
+  const goToPage = (page: number) => {
+    setCurrentPage(Math.max(1, Math.min(page, totalPages)));
+  };
+
+  // Generar números de página para mostrar
+  const getPageNumbers = () => {
+    const pages = [];
+    const maxVisible = 5;
+    
+    if (totalPages <= maxVisible) {
+      for (let i = 1; i <= totalPages; i++) {
+        pages.push(i);
+      }
+    } else {
+      if (currentPage <= 3) {
+        for (let i = 1; i <= 4; i++) pages.push(i);
+        pages.push('...');
+        pages.push(totalPages);
+      } else if (currentPage >= totalPages - 2) {
+        pages.push(1);
+        pages.push('...');
+        for (let i = totalPages - 3; i <= totalPages; i++) pages.push(i);
+      } else {
+        pages.push(1);
+        pages.push('...');
+        for (let i = currentPage - 1; i <= currentPage + 1; i++) pages.push(i);
+        pages.push('...');
+        pages.push(totalPages);
+      }
+    }
+    return pages;
+  };
 
   return (
     <div>
-      <h2 className="text-xl font-semibold mb-4 text-gray-600 dark:text-white">Palabras</h2>
-      <div className="flex flex-wrap gap-6">
-      {words.map((word) => (
-          <Card
-            key={word.palabra}
-            className={`w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)] transition-all duration-300 ${
-              expandedId.includes(word.palabra)
-                ? "h-auto"
-                : "h-[120px] overflow-hidden"
-            }`}
-          >
-            <CardHeader>
-              <CardTitle>{word.palabra}</CardTitle>
-            </CardHeader>
-            <AnimatePresence initial={false}>
-              {expandedId.includes(word.palabra) && (
-                <motion.div
-                  key="content"
-                  initial={{ opacity: 0, scale: 0.98, height: 0 }}
-                  animate={{ opacity: 1, scale: 1, height: "auto" }}
-                  exit={{ opacity: 0, scale: 0.98, height: 0 }}
-                  transition={{ duration: 0.1, ease: "easeInOut" }}
-                >
-                  <CardContent>
-                    <CardDescription className="mb-4">
-                      {word.significado}
-                    </CardDescription>
-                    <div className="relative h-auto w-full flex justify-center">
-                      <Image
-                        src={getImageUrl(word.imagen, word.formato)}
-                        alt={word.palabra}
-                        className="object-cover rounded-md"
-                        width={250}
-                        height={250}
-                        unoptimized
-                        style={{ userSelect: "none", pointerEvents: "none" }}
-                      />
-                    </div>
-                  </CardContent>
-                </motion.div>
-              )}
-            </AnimatePresence>
+      <div className="flex items-center justify-between mb-6">
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+          Palabras {filteredWords.length > 0 && `(${filteredWords.length})`}
+        </h2>
+      </div>
 
-            <CardFooter className="justify-center">
+      {/* Buscador */}
+      <div className="relative mb-6">
+        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+        <Input
+          type="text"
+          placeholder="Buscar palabras o significados..."
+          value={searchTerm}
+          onChange={(e) => handleSearchChange(e.target.value)}
+          className="pl-10 pr-4 py-2 w-full border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 dark:bg-gray-800 dark:text-white"
+        />
+        {searchTerm && (
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => handleSearchChange("")}
+            className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 h-6 w-6 p-0"
+          >
+            ×
+          </Button>
+        )}
+      </div>
+
+      {/* Resultados */}
+      {filteredWords.length === 0 ? (
+        <div className="text-center py-8">
+          <p className="text-gray-500 dark:text-gray-400">
+            {searchTerm ? `No se encontraron resultados para "${searchTerm}"` : "No hay palabras disponibles"}
+          </p>
+        </div>
+      ) : (
+        <>
+          {/* Lista de palabras */}
+          <div className="space-y-2 mb-6">
+            {paginatedWords.map((word) => (
+              <div
+                key={word.palabra}
+                className="border border-white dark:border-gray-700 rounded-lg bg-white dark:bg-[var(--card)] overflow-hidden"
+              >
+                {/* Header del acordeón */}
+                <div className="flex items-center justify-between p-4 transition-colors">
+                  <div className="flex-1">
+                    <h3 className="text-lg font-medium text-gray-900 dark:text-white">
+                      {word.palabra}
+                    </h3>
+                  </div>
+                  <Button
+                    variant="outline"
+                    onClick={() => toggleExpand(word.palabra, setExpandedId)}
+                    className="ml-4 bg-yellow-800 dark:bg-yellow-800 text-white hover:bg-yellow-900 dark:hover:bg-yellow-900 hover:text-white border-yellow-800 hover:border-yellow-900 cursor-pointer"
+                  >
+                    {expandedId.includes(word.palabra) ? "Ver menos" : "Ver más"}
+                  </Button>
+                </div>
+
+                {/* Contenido expandible */}
+                <AnimatePresence initial={false}>
+                  {expandedId.includes(word.palabra) && (
+                    <motion.div
+                      key="content"
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.2, ease: "easeInOut" }}
+                    >
+                      <div className="px-4 pb-4 border-t border-gray-100 dark:border-gray-600">
+                        <div className="pt-4">
+                          <p className="text-gray-700 dark:text-gray-300 mb-4">
+                            {word.significado}
+                          </p>
+                          <div className="flex justify-center">
+                            <Image
+                              src={getImageUrl(word.imagen, word.formato)}
+                              alt={word.palabra}
+                              className="object-cover rounded-md"
+                              width={250}
+                              height={250}
+                              unoptimized
+                              style={{ userSelect: "none", pointerEvents: "none" }}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            ))}
+          </div>
+
+          {/* Paginación */}
+          {totalPages > 1 && (
+            <div className="flex items-center justify-center gap-2">
               <Button
                 variant="outline"
-                onClick={() => toggleExpand(word.palabra, setExpandedId)}
-                className="w-1/2 cursor-pointer bg-yellow-800 text-white hover:bg-yellow-900 hover:text-white"
+                size="sm"
+                onClick={() => goToPage(currentPage - 1)}
+                disabled={currentPage === 1}
+                className="flex items-center gap-1"
               >
-                {expandedId.includes(word.palabra) ? "Ver menos" : "Ver más"}
+                <ChevronLeft className="h-4 w-4" />
+                Anterior
               </Button>
-            </CardFooter>
-          </Card>
-        ))}
-      </div>
+
+              <div className="flex items-center gap-1">
+                {getPageNumbers().map((page, index) => (
+                  page === '...' ? (
+                    <span key={index} className="px-2 text-gray-500">...</span>
+                  ) : (
+                    <Button
+                      key={page}
+                      variant={currentPage === page ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => goToPage(page as number)}
+                      className={currentPage === page ? "bg-yellow-800 hover:bg-yellow-900" : ""}
+                    >
+                      {page}
+                    </Button>
+                  )
+                ))}
+              </div>
+
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => goToPage(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                className="flex items-center gap-1"
+              >
+                Siguiente
+                <ChevronRight className="h-4 w-4" />
+              </Button>
+            </div>
+          )}
+
+          {/* Info de paginación */}
+          <div className="text-center mt-4 text-sm text-gray-600 dark:text-gray-400">
+            Mostrando {((currentPage - 1) * WORDS_PER_PAGE) + 1} - {Math.min(currentPage * WORDS_PER_PAGE, filteredWords.length)} de {filteredWords.length} palabras
+          </div>
+        </>
+      )}
     </div>
   );
 }

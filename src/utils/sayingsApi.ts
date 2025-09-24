@@ -15,14 +15,16 @@ export async function getSayings() {
 
   
 export async function addSayings(saying: NewSayings) {
-    if (!saying.imagen) {
-      console.log('no imagen')
-      return;
-    }
+    // if (!saying.imagen) {
+    //   console.log('no imagen')
+    //   return;
+    // }
     const formData = new FormData();
     formData.append("refran", saying.refran);
     formData.append("significado", saying.significado);
+    if (saying.imagen) {
     formData.append("imagen", saying.imagen);
+    }
   
     try {
       console.log('formData', formData)
@@ -38,16 +40,17 @@ export async function addSayings(saying: NewSayings) {
   
   export async function editSayings(saying: EditSayings) {
     console.log('editSayings', saying)
-    if (!saying.imagen) {
-      console.log('no imagen')
-      return;
-    }
+    // if (!saying.imagen) {
+    //   console.log('no imagen')
+    //   return;
+    // }
   
     const formData = new FormData();
     formData.append("refran", saying.refran);
     formData.append("significado", saying.significado);
+    if (saying.imagen) {
     formData.append("imagen", saying.imagen);
-  
+    }  
     try {
       console.log('word', saying)
       const response = await axios.put(`https://edutlasdeveloper.pythonanywhere.com/apie/refranes/${saying.id}`, formData)

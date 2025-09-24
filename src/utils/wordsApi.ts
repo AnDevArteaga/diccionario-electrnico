@@ -14,14 +14,17 @@ export async function getWords() {
 }
 
 export async function addWord(word: NewWord) {
-  if (!word.imagen) {
-    console.log('no imagen')
-    return;
-  }
+  // if (!word.imagen) {
+  //   console.log('no imagen')
+  //   return;
+  // }
   const formData = new FormData();
   formData.append("palabra", word.palabra);
   formData.append("significado", word.significado);
+  if (word.imagen) {
   formData.append("imagen", word.imagen);
+  }
+
 
   try {
     console.log('formData', formData)
@@ -36,16 +39,14 @@ export async function addWord(word: NewWord) {
 }
 
 export async function editWord(word: EditWord) {
-  if (!word.imagen) {
-    console.log('no imagen')
-    return;
-  }
+
 
   const formData = new FormData();
   formData.append("palabra", word.palabra);
   formData.append("significado", word.significado);
+  if (word.imagen) {
   formData.append("imagen", word.imagen);
-
+  }
   try {
     console.log('word', word)
     const response = await axios.put(`https://edutlasdeveloper.pythonanywhere.com/apie/palabras/${word.id}`, formData)

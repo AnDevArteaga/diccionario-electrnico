@@ -34,16 +34,26 @@ export default function ImageModal({ image, format }: Images) {
                 <DialogContent className="max-w-md rounded-2xl p-6 shadow-lg">
                     <DialogHeader>
                         <DialogTitle className="text-lg font-semibold">
-                            Imagen Destacada
+                            {image && format ? 'Imagen Destacada' : 'Sin imagen'}
                         </DialogTitle>
                     </DialogHeader>
-                    <Image
+                    {image && format ? (
+                        <Image
                         src={getImageUrl(image, format)}
                         alt="Imagen de muestra"
                         className="w-full rounded-lg"
                         width={100}
                         height={100}
-                    />
+                        />
+                    ) : (
+                        <Image
+                        src="/noimage.jpg" // 
+                        alt="Sin imagen disponible"
+                        className="w-full rounded-lg"
+                        width={100}
+                        height={100}
+                        />
+                    )}
                     <Button
                         onClick={() => setOpen(false)}
                         className="w-full mt-4 bg-orange-900 hover:bg-orange-800 dark:bg-yellow-500 dark:text-white cursor-pointer"
